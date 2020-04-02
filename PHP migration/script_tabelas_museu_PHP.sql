@@ -11,7 +11,7 @@ CREATE TABLE if not exists Utilizador (
 CREATE TABLE if not exists RondaExtra (
 	email varchar(100),
 	dataHoraInicio timestamp NOT NULL,
-	dataHoraFim timestamp,
+	dataHoraFim timestamp null default null,
 	CONSTRAINT PK_RondaExtra PRIMARY KEY (email, dataHoraInicio),
 	FOREIGN KEY (email)
 		REFERENCES Utilizador (email)
@@ -72,8 +72,8 @@ CREATE TABLE if not exists log_InsertRondaExtra (
 	QuemInseriu varchar(100),
 	DataInsercao timestamp,
 	EmailNovo varchar(100), 
-	DataHoraInicioNova timestamp,
-	DataHoraFimNova timestamp
+	DataHoraInicioNova timestamp null default null,
+	DataHoraFimNova timestamp null default null
 	);
 	
 CREATE TABLE if not exists log_RondaPlaneada (
