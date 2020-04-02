@@ -64,7 +64,8 @@ CREATE TABLE if not exists log_Utilizador (
 	NomeAntigo varchar(200),
 	NomeNovo varchar(200),
 	MoradaAntiga varchar(400),
-	MoradaNova varchar(400)
+	MoradaNova varchar(400),
+	Migrado BOOLEAN
 	);
 
 CREATE TABLE if not exists log_InsertRondaExtra (
@@ -73,7 +74,8 @@ CREATE TABLE if not exists log_InsertRondaExtra (
 	DataInsercao timestamp,
 	EmailNovo varchar(100), 
 	DataHoraInicioNova timestamp null default null,
-	DataHoraFimNova timestamp null default null
+	DataHoraFimNova timestamp null default null,
+	Migrado BOOLEAN
 	);
 	
 CREATE TABLE if not exists log_RondaPlaneada (
@@ -88,7 +90,8 @@ CREATE TABLE if not exists log_RondaPlaneada (
 	HoraRondaInicioAntiga time,
 	HoraRondaInicioNova time,
     HoraRondaFimAntiga time,
-	HoraRondaFimNova time
+	HoraRondaFimNova time,
+	Migrado BOOLEAN
 	);
 
 CREATE TABLE if not exists log_DiaSemana (
@@ -100,7 +103,8 @@ CREATE TABLE if not exists log_DiaSemana (
 	HoraRondaInicioAntiga time,
 	HoraRondaInicioNova time,
     HoraRondaFimAntiga time,
-	HoraRondaFimNova time
+	HoraRondaFimNova time,
+	Migrado BOOLEAN
 	);
 
 CREATE TABLE if not exists log_UpdateSistema (
@@ -112,7 +116,8 @@ CREATE TABLE if not exists log_UpdateSistema (
 	LimiteHumidadeAntigo decimal(6,2),
 	LimiteHumidadeNovo decimal(6,2),
 	LimiteLuminosidadeAntigo decimal(6,2),
-	LimiteLuminosidadeNovo decimal(6,2)
+	LimiteLuminosidadeNovo decimal(6,2),
+	Migrado BOOLEAN
 	);
     
 CREATE TABLE if not exists log_Select (
@@ -120,11 +125,12 @@ CREATE TABLE if not exists log_Select (
 		QuemViu varchar(100),
         DataVisualizacao timestamp,
         TabelaVista varchar(20),
-        atributosVistos text
+        atributosVistos text,
+	Migrado BOOLEAN
 		);
 	
 CREATE TABLE if not exists Migracoes (
 	dataHora timestamp PRIMARY KEY,
 	tabelaEmMigracao varchar(30),
-	migrado bool
+	migrado boolean
 	);
