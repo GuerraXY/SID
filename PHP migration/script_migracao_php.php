@@ -67,19 +67,20 @@ function confirm_migration($query_result, $table_migrated, $row_values, $row_ind
 function get_column_name_with_index($index, $column_vector){
     return $column_vector[$index];
 }
-function connect_to_sql_server($database_name){
-    $url="127.0.0.1";
-    $database=$database_name;
-    $username="root";
-    $password="teste";
-    $conn = mysqli_connect($url, $username, $password, $database);
-    if (!$conn){
-        die ("Connection Failled: ".$conn->connect_error);
-    }
+function connect_to_sql_server($database_name)
+{
+    $url = "127.0.0.1";
+    $database = $database_name;
+    $username = "root";
+    $password = "teste";
+    do {
+        $conn = mysqli_connect($url, $username, $password, $database);
+        if (!$conn) {
+            die ("Connection Failled: " . $conn->connect_error);
+            sleep(1800);
+        }
+    } while (!$conn);
     return $conn;
-}
-function disconnect_from_sql_server($sql_connection){
-    mysqli_close($sql_connection);
 }
 function get_logs_from_table($table_name, $connection){
     $sql_statement = "SELECT * FROM ".$table_name." WHERE Migrado = 0;";
