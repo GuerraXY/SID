@@ -5,6 +5,7 @@ USE MuseuPHP;
 CREATE TABLE if not exists Utilizador (
 	email varchar(100) PRIMARY KEY,
 	nome varchar(100) NOT NULL,
+	tipo varchar(3),
 	morada varchar(400)
 );
 
@@ -16,6 +17,7 @@ CREATE TABLE if not exists RondaExtra (
 	FOREIGN KEY (email)
 		REFERENCES Utilizador (email)
 		ON UPDATE CASCADE
+		ON DELETE CASCADE
 );
 
 CREATE TABLE if not exists DiaSemana (
@@ -33,11 +35,12 @@ CREATE TABLE if not exists RondaPlaneada (
 	CONSTRAINT PK_RondaPlaneada PRIMARY KEY (email,DiaSemana,HoraRondaInicio),
 	FOREIGN KEY (email)
 		REFERENCES Utilizador (email)
-		ON UPDATE CASCADE,
+		ON UPDATE CASCADE
+		ON DELETE CASCADE,
 	FOREIGN KEY (DiaSemana,HoraRondaInicio,HoraRondaFim)
 		REFERENCES DiaSemana (DiaSemana,HoraRondaInicio,HoraRondaFim)
 		ON UPDATE CASCADE
-		ON DELETE RESTRICT
+		ON DELETE CASCADE
 		
 );
 
@@ -63,6 +66,8 @@ CREATE TABLE if not exists log_Utilizador (
 	EmailNovo varchar(100),
 	NomeAntigo varchar(200),
 	NomeNovo varchar(200),
+	TipoUtilizadorAntigo varchar(3),
+	TipoUtilizadorNovo varchar(3),
 	MoradaAntiga varchar(400),
 	MoradaNova varchar(400),
 	Migrado BIT
