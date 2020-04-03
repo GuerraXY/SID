@@ -1,12 +1,17 @@
+USE museuphp;
+
 DELIMITER $$
 DROP PROCEDURE IF EXISTS `add_User`$$
 CREATE PROCEDURE `add_User`(IN `NomeUtilizador` VARCHAR(200), IN `EmailUtilizador` VARCHAR(100), 
-IN `Morada`VARCHAR(400), IN `TipoUtilizador`VARCHAR(30), IN `Ativo`BOOLEAN)
+IN `Morada`VARCHAR(400), IN `TipoUtilizador`VARCHAR(30), IN `Ativo`BOOLEAN, IN `Pass`VARCHAR(40))
 BEGIN
 Drop user IF EXISTS EmailUtilizador;
-if tipoUtilizador = 's' or tipoUtilizador = 'cs' or tipoUtilizador ='aud' or tipoUtilizador ='adm'
- or tipoUtilizador ='mdb' or tipoUtilizador ='dm' then
-Create user EmailUtilizador identified by 'pass';
+if tipoUtilizador = 's' or tipoUtilizador = 'cs' or tipoUtilizador ='aud' or tipoUtilizador ='adm' or tipoUtilizador ='mdb' or tipoUtilizador ='dm' then
+		FLUSH PRIVILEGES;
+        SET @comando = CONCAT('CREATE USER "', EmailUtilizador,'" IDENTIFIED BY "', Pass ,'" ');
+        PREPARE create_user FROM @comando;
+        EXECUTE create_user;
+        DEALLOCATE PREPARE create_user;
 insert into dctidata_g09.utilizador (NomeUtilizador, EmailUtilizador, Morada, TipoUtilizador,Ativo)
 Values(
    NomeUtilizador,
