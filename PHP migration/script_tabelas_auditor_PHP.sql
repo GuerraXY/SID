@@ -51,7 +51,7 @@ CREATE TABLE if not exists log_DiaSemana (
 	HoraRondaFimNova varchar(8)
 	);
 
-CREATE TABLE if not exists log_UpdateSistema (
+CREATE TABLE if not exists log_Sistema (
 	id int PRIMARY KEY AUTO_INCREMENT,
 	QuemAlterou varchar(100),
 	DataAlteracao varchar(8),
