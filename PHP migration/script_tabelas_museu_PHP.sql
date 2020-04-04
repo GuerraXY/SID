@@ -5,25 +5,24 @@ USE MuseuPHP;
 CREATE TABLE if not exists Utilizador (
 	email varchar(100) PRIMARY KEY,
 	nome varchar(100) NOT NULL,
-	tipo varchar(3),
+	tipo varchar(3) NOT NULL,
 	morada varchar(400)
 );
 
 CREATE TABLE if not exists RondaExtra (
 	email varchar(100),
-	dataHoraInicio timestamp NOT NULL,
+	dataHoraInicio timestamp,
 	dataHoraFim timestamp null default null,
 	CONSTRAINT PK_RondaExtra PRIMARY KEY (email, dataHoraInicio),
 	FOREIGN KEY (email)
 		REFERENCES Utilizador (email)
 		ON UPDATE CASCADE
-		ON DELETE CASCADE
 );
 
 CREATE TABLE if not exists DiaSemana (
 	DiaSemana varchar(20),
 	HoraRondaInicio time,
-    HoraRondaFim time,
+    	HoraRondaFim time,
 	CONSTRAINT PK_DiaSemana PRIMARY KEY (DiaSemana,HoraRondaInicio,HoraRondaFim)
 );
 
@@ -31,7 +30,7 @@ CREATE TABLE if not exists RondaPlaneada (
 	email varchar(100),
 	DiaSemana varchar(20),
 	HoraRondaInicio time,
-    HoraRondaFim time,
+    	HoraRondaFim time,
 	CONSTRAINT PK_RondaPlaneada PRIMARY KEY (email,DiaSemana,HoraRondaInicio),
 	FOREIGN KEY (email)
 		REFERENCES Utilizador (email)
@@ -45,16 +44,16 @@ CREATE TABLE if not exists RondaPlaneada (
 );
 
 CREATE TABLE if not exists Sistema (
-	LimiteTemperatura decimal(6,2),
-	LimiteHumidade decimal(6,2),
-	LimiteLuminosidade decimal(6,2)
+	limiteTemperatura decimal(6,2),
+	limiteHumidade decimal(6,2),
+	limiteLuminosidade decimal(6,2)
 );
 
 CREATE TABLE if not exists MedicoesSensores (
 	IDMedicao int PRIMARY KEY AUTO_INCREMENT,
-	ValorMedicao decimal(6,2),
-	TipoSensor varchar(3),
-	DataHoraMedicao timestamp
+	valorMedicao decimal(6,2),
+	tipoSensor varchar(3),
+	dataHoraMedicao timestamp
 );
 
 CREATE TABLE if not exists log_Utilizador (
@@ -94,7 +93,7 @@ CREATE TABLE if not exists log_RondaPlaneada (
 	DiaSemanaNovo varchar(20),
 	HoraRondaInicioAntiga time,
 	HoraRondaInicioNova time,
-    HoraRondaFimAntiga time,
+    	HoraRondaFimAntiga time,
 	HoraRondaFimNova time,
 	Migrado BIT
 	);
@@ -107,12 +106,12 @@ CREATE TABLE if not exists log_DiaSemana (
 	DiaSemanaNovo varchar(20),
 	HoraRondaInicioAntiga time,
 	HoraRondaInicioNova time,
-    HoraRondaFimAntiga time,
+   	HoraRondaFimAntiga time,
 	HoraRondaFimNova time,
 	Migrado BIT
 	);
 
-CREATE TABLE if not exists log_UpdateSistema (
+CREATE TABLE if not exists log_Sistema (
 	id int PRIMARY KEY AUTO_INCREMENT,
 	QuemAlterou varchar(100),
 	DataAlteracao timestamp,
@@ -126,8 +125,8 @@ CREATE TABLE if not exists log_UpdateSistema (
 	);
     
 CREATE TABLE if not exists log_Select (
-		id int PRIMARY KEY AUTO_INCREMENT,
-		QuemViu varchar(100),
+	id int PRIMARY KEY AUTO_INCREMENT,
+	QuemViu varchar(100),
         DataVisualizacao timestamp,
         TabelaVista varchar(20),
         atributosVistos text,
@@ -137,5 +136,5 @@ CREATE TABLE if not exists log_Select (
 CREATE TABLE if not exists Migracoes (
 	dataHora DATETIME PRIMARY KEY,
 	tabelaEmMigracao varchar(30),
-	migrado BIT
+	Migrado BIT
 	);
